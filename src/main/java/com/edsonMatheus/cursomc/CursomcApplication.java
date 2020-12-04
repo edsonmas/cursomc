@@ -1,8 +1,12 @@
 package com.edsonMatheus.cursomc;
 
 import com.edsonMatheus.cursomc.domain.Categoria;
+import com.edsonMatheus.cursomc.domain.Cidade;
+import com.edsonMatheus.cursomc.domain.Estado;
 import com.edsonMatheus.cursomc.domain.Produto;
 import com.edsonMatheus.cursomc.repositories.CategoriaRepository;
+import com.edsonMatheus.cursomc.repositories.CidadeRepository;
+import com.edsonMatheus.cursomc.repositories.EstadoRepository;
 import com.edsonMatheus.cursomc.repositories.ProdutoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -19,6 +23,12 @@ public class CursomcApplication implements CommandLineRunner {
 
 	@Autowired
 	private ProdutoRepository produtoRepository;
+
+	@Autowired
+	private EstadoRepository estadoRepository;
+
+	@Autowired
+	private CidadeRepository cidadeRepositorie;
 
 	public static void main(String[] args) {
 		SpringApplication.run(CursomcApplication.class, args);
@@ -42,5 +52,18 @@ public class CursomcApplication implements CommandLineRunner {
 
 		categoriaRepository.saveAll(Arrays.asList(cat1, cat2));
 		produtoRepository.saveAll(Arrays.asList(p1,p2,p3));
+
+		Estado est1 = new Estado(null,"Mina Gerais");
+		Estado est2 = new Estado(null,"São Paulo");
+		Cidade c1 = new Cidade(null,"Uberlandia",est1);
+		Cidade c2 = new Cidade(null,"São Paulo",est2);
+		Cidade c3 = new Cidade(null,"Campinas",est2);
+
+		est1.getCidades().addAll(Arrays.asList(c1));
+		est2.getCidades().addAll(Arrays.asList(c2,c3));
+
+		estadoRepository.saveAll(Arrays.asList(est1,est2));
+		cidadeRepositorie.saveAll(Arrays.asList(c1,c2,c3));
+
 	}
 }
