@@ -1,5 +1,7 @@
 package com.edsonMatheus.cursomc.domain;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -16,6 +18,7 @@ import java.util.Objects;
     private String nome;
     private double preço;
 
+    @JsonBackReference
     @ManyToMany
     @JoinTable(name = "PRODUTO_CATEGORIA" ,
             joinColumns = @JoinColumn (name = "produto_id"),
