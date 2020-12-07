@@ -2,27 +2,33 @@ package com.edsonMatheus.cursomc.domain;
 
 import com.edsonMatheus.cursomc.domain.enums.TipoCliente;
 
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.*;
 
+@Entity
 public class Cliente implements Serializable {
     private static final long serialVersionUID = 1L;
 
-    private int id;
+    @Id
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
+    private Integer id;
     private String nome;
     private String email;
     private String cpfOuCnpj;
     private Integer tipo;
 
+    @OneToMany(mappedBy = "cliente")
     private List<Endereco> enderecos = new ArrayList<>();
 
+    @ElementCollection
+    @CollectionTable(name = "telefone")
     private Set<String> telefones = new HashSet<>();
 
-    private Cliente(){
-
+    public Cliente(){
     }
 
-    public Cliente(int id, String nome, String email, String cpfOuCnpj, TipoCliente tipo) {
+    public Cliente(Integer id, String nome, String email, String cpfOuCnpj, TipoCliente tipo) {
         this.id = id;
         this.nome = nome;
         this.email = email;
@@ -30,7 +36,7 @@ public class Cliente implements Serializable {
         this.tipo = tipo.getCod();
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 

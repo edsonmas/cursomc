@@ -1,26 +1,34 @@
 package com.edsonMatheus.cursomc.domain;
 
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Objects;
 
+@Entity
 public class Endereco implements Serializable {
     private static final long serialVersionUID = 1L;
 
-    private int id;
+    @Id
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
+    private Integer id;
     private String logradouro;
     private String numero;
     private String complemento;
     private String bairro;
     private String cep;
 
+    @ManyToOne
+    @JoinColumn(name = "cidade_id")
     private Cidade cidade;
+
+    @ManyToOne
+    @JoinColumn(name = "cliente_id")
     private Cliente cliente;
 
     private Endereco(){
-
     }
 
-    public Endereco(int id, String logradouro, String numero, String complemento, String bairro, String cep, Cliente cliente, Cidade cidade) {
+    public Endereco(Integer id, String logradouro, String numero, String complemento, String bairro, String cep, Cliente cliente, Cidade cidade) {
         this.id = id;
         this.logradouro = logradouro;
         this.numero = numero;
@@ -31,11 +39,11 @@ public class Endereco implements Serializable {
         this.cidade = cidade;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
