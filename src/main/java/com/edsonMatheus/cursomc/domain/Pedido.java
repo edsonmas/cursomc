@@ -3,7 +3,9 @@ package com.edsonMatheus.cursomc.domain;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 public class Pedido implements Serializable {
@@ -24,6 +26,9 @@ public class Pedido implements Serializable {
     @ManyToOne
     @JoinColumn(name = "enderecoDeEntrega_id")
     private Endereco edecoDeEntregra;
+
+    @OneToMany(mappedBy = "id.pedido")
+    private Set<ItemPedido> itens = new HashSet<>();
 
     public Pedido() {
     }
@@ -74,6 +79,13 @@ public class Pedido implements Serializable {
     public void setEdecoDeEntregra(Endereco edecoDeEntregra) {
         this.edecoDeEntregra = edecoDeEntregra;
     }
+    public Set<ItemPedido> getItens() {
+        return itens;
+    }
+
+    public void setItens(Set<ItemPedido> itens) {
+        this.itens = itens;
+    }
 
     @Override
     public boolean equals(Object o) {
@@ -87,4 +99,6 @@ public class Pedido implements Serializable {
     public int hashCode() {
         return Objects.hash(id);
     }
+
+
 }
