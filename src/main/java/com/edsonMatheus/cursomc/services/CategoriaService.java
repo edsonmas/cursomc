@@ -2,8 +2,10 @@ package com.edsonMatheus.cursomc.services;
 
 import com.edsonMatheus.cursomc.domain.Categoria;
 import com.edsonMatheus.cursomc.repositories.CategoriaRepository;
+import com.edsonMatheus.cursomc.services.exceptions.DataIntegrityException;
 import com.edsonMatheus.cursomc.services.exceptions.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -28,7 +30,15 @@ public class CategoriaService {
         find(obj.getId());
         return repo.save(obj);
     }
-
+    public void delete(Integer id){
+        find(id);
+        try {
+        repo.deleteById(id);
+         }
+        catch (DataIntegrityViolationException e){
+            throw new DataIntegrityException("Não é possível excluir uma categoria que possua produtos.");
+        }
+    }
 }
 
 
