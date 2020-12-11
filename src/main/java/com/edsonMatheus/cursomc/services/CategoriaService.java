@@ -1,6 +1,7 @@
 package com.edsonMatheus.cursomc.services;
 
 import com.edsonMatheus.cursomc.domain.Categoria;
+import com.edsonMatheus.cursomc.dto.CategoriaDTO;
 import com.edsonMatheus.cursomc.repositories.CategoriaRepository;
 import com.edsonMatheus.cursomc.services.exceptions.DataIntegrityException;
 import com.edsonMatheus.cursomc.services.exceptions.ObjectNotFoundException;
@@ -49,6 +50,9 @@ public class CategoriaService {
     public Page<Categoria> findPage(Integer page,Integer linesPerPage, String orderBy,String direction){
         PageRequest pageRequest = PageRequest.of(page,linesPerPage, Sort.Direction.valueOf(direction),orderBy);
         return repo.findAll(pageRequest);
+    }
+    public Categoria fromDTO(CategoriaDTO objDto){
+        return new Categoria(objDto.getId(),objDto.getNome());
     }
 }
 
