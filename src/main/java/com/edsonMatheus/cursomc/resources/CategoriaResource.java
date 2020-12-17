@@ -16,7 +16,7 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping(value = "/categorias")
-public class CategoriaResource {
+public class   CategoriaResource {
 
     @Autowired
     private CategoriaService service;
