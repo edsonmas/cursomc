@@ -1,11 +1,13 @@
 package com.edsonMatheus.cursomc.dto;
 
 import com.edsonMatheus.cursomc.domain.Categoria;
+import com.edsonMatheus.cursomc.services.validation.ClienteUpdate;
 import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.NotEmpty;
 import java.io.Serializable;
 
+@ClienteUpdate
 public class CategoriaDTO implements Serializable {
     private static final long serialVersionUID = 1L;
     private Integer id;
